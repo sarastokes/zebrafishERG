@@ -1,0 +1,143 @@
+
+string zaa$="330", zbb$="370", zcc$="410", zdd$="450", zee$="490", zff$="530", zgg$="570", zhh$="610", zii$="650";
+string normbk$="normbk", Ncomp$="ERG component", logn$="colname";
+
+
+zaa$ = col(REF)[1]$;
+zbb$ = col(REF)[2]$;
+zcc$ = col(REF)[3]$;
+zdd$ = col(REF)[4]$;
+zee$ = col(REF)[5]$;
+zff$ = col(REF)[6]$;
+zgg$ = col(REF)[7]$;
+zhh$ = col(REF)[8]$;
+zii$ = col(REF)[9]$;
+NormBk$ = col(REF)[11]$;
+Ncomp$ = col(REF)[12]$;
+
+win -a [%(zaa$)];
+NC=15;
+win -a [%(NormBk$)];
+
+
+//2.0 Amp Diff
+if (col(REF)[14]$=="IR" && col(REF)[15]$=="AD"){
+wrcopy iw:=[zaa$]"111"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]AD! dc1:=3 dr1:=1;
+wrcopy iw:=[zbb$]"231"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]AD! dc1:=3 dr1:=2;
+wrcopy iw:=[zcc$]"331"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]AD! dc1:=3 dr1:=3;
+wrcopy iw:=[zdd$]"431"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]AD! dc1:=3 dr1:=4;
+wrcopy iw:=[zee$]"531"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]AD! dc1:=3 dr1:=5;
+wrcopy iw:=[zff$]"631"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]AD! dc1:=3 dr1:=6;
+wrcopy iw:=[zgg$]"731"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]AD! dc1:=3 dr1:=7;
+wrcopy iw:=[zhh$]"831"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]AD! dc1:=3 dr1:=8;
+wrcopy iw:=[zii$]"931"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]AD! dc1:=3 dr1:=9;
+};
+
+//2.0 Amp Diff
+if (col(REF)[14]$=="IR" && col(REF)[12]$=="TT"){
+wrcopy iw:=[zaa$]"111"! r1:=3 r2:=3 c1:=3 c2:=30 ow:=[NormBk$]TT! dc1:=3 dr1:=1;
+wrcopy iw:=[zbb$]"231"! r1:=3 r2:=3 c1:=3 c2:=30 ow:=[NormBk$]TT! dc1:=3 dr1:=2;
+wrcopy iw:=[zcc$]"331"! r1:=3 r2:=3 c1:=3 c2:=30 ow:=[NormBk$]TT! dc1:=3 dr1:=3;
+wrcopy iw:=[zdd$]"431"! r1:=3 r2:=3 c1:=3 c2:=30 ow:=[NormBk$]TT! dc1:=3 dr1:=4;
+wrcopy iw:=[zee$]"531"! r1:=3 r2:=3 c1:=3 c2:=30 ow:=[NormBk$]TT! dc1:=3 dr1:=5;
+wrcopy iw:=[zff$]"631"! r1:=3 r2:=3 c1:=3 c2:=30 ow:=[NormBk$]TT! dc1:=3 dr1:=6;
+wrcopy iw:=[zgg$]"731"! r1:=3 r2:=3 c1:=3 c2:=30 ow:=[NormBk$]TT! dc1:=3 dr1:=7;
+wrcopy iw:=[zhh$]"831"! r1:=3 r2:=3 c1:=3 c2:=30 ow:=[NormBk$]TT! dc1:=3 dr1:=8;
+wrcopy iw:=[zii$]"931"! r1:=3 r2:=3 c1:=3 c2:=30 ow:=[NormBk$]TT! dc1:=3 dr1:=9;
+};
+
+if (col(REF)[14]$=="Red" && col(REF)[15]$=="AD"){
+wrcopy iw:=[zaa$]"1112"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=1;
+wrcopy iw:=[zbb$]"2312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=2;
+wrcopy iw:=[zcc$]"3312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=3;
+wrcopy iw:=[zdd$]"4312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=4;
+wrcopy iw:=[zee$]"5312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=5;
+wrcopy iw:=[zff$]"6312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=6;
+wrcopy iw:=[zgg$]"7312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=7;
+wrcopy iw:=[zhh$]"8312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=8;
+wrcopy iw:=[zii$]"9312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=9;
+};
+
+if (col(REF)[14]$=="Blue" && col(REF)[12]$=="AD" && EC==1){
+wrcopy iw:=[zaa$]"1113"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=1;
+wrcopy iw:=[zbb$]"2313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=2;
+wrcopy iw:=[zcc$]"3313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=3;
+wrcopy iw:=[zdd$]"4313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=4;
+wrcopy iw:=[zee$]"5313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=5;
+wrcopy iw:=[zff$]"6313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=6;
+wrcopy iw:=[zgg$]"7313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=7;
+wrcopy iw:=[zhh$]"8313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=8;
+wrcopy iw:=[zii$]"9313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=9;
+};
+
+if (col(REF)[14]$=="Blue" && col(REF)[12]$=="AD" && EC==2){
+wrcopy iw:=[zaa$]"113"! r1:=5 r2:=5 c1:=3 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=1;
+wrcopy iw:=[zbb$]"233"! r1:=5 r2:=5 c1:=3 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=2;
+wrcopy iw:=[zcc$]"333"! r1:=5 r2:=5 c1:=3 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=3;
+wrcopy iw:=[zdd$]"433"! r1:=5 r2:=5 c1:=3 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=4;
+wrcopy iw:=[zee$]"533"! r1:=5 r2:=5 c1:=3 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=5;
+wrcopy iw:=[zff$]"633"! r1:=5 r2:=5 c1:=3 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=6;
+wrcopy iw:=[zgg$]"733"! r1:=5 r2:=5 c1:=3 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=7;
+wrcopy iw:=[zhh$]"833"! r1:=5 r2:=5 c1:=3 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=8;
+wrcopy iw:=[zii$]"933"! r1:=5 r2:=5 c1:=3 c2:=23 ow:=[NormBk$]AD! dc1:=3 dr1:=9;
+};
+
+//2.0 Peak Amplitudes
+if (col(REF)[14]$=="IR" && col(REF)[12]$=="PA"){2
+wrcopy iw:=[zaa$]"111"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]PA! dc1:=3 dr1:=1;
+wrcopy iw:=[zbb$]"231"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]PA! dc1:=3 dr1:=2;
+wrcopy iw:=[zcc$]"331"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]PA! dc1:=3 dr1:=3;
+wrcopy iw:=[zdd$]"431"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]PA! dc1:=3 dr1:=4;
+wrcopy iw:=[zee$]"531"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]PA! dc1:=3 dr1:=5;
+wrcopy iw:=[zff$]"631"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]PA! dc1:=3 dr1:=6;
+wrcopy iw:=[zgg$]"731"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]PA! dc1:=3 dr1:=7;
+wrcopy iw:=[zhh$]"831"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]PA! dc1:=3 dr1:=8;
+wrcopy iw:=[zii$]"931"! r1:=5 r2:=5 c1:=2 c2:=30 ow:=[NormBk$]PA! dc1:=3 dr1:=9;
+};
+
+if (col(REF)[14]$=="Red" && col(REF)[12]$=="PA"){
+wrcopy iw:=[zaa$]"1112"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=1;
+wrcopy iw:=[zbb$]"2312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=2;
+wrcopy iw:=[zcc$]"3312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=3;
+wrcopy iw:=[zdd$]"4312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=4;
+wrcopy iw:=[zee$]"5312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=5;
+wrcopy iw:=[zff$]"6312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=6;
+wrcopy iw:=[zgg$]"7312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=7;
+wrcopy iw:=[zhh$]"8312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=8;
+wrcopy iw:=[zii$]"9312"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=9;
+};
+
+if (col(REF)[14]$=="Blue" && col(REF)[12]$=="PA"){
+wrcopy iw:=[zaa$]"1113"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=1;
+wrcopy iw:=[zbb$]"2313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=2;
+wrcopy iw:=[zcc$]"3313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=3;
+wrcopy iw:=[zdd$]"4313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=4;
+wrcopy iw:=[zee$]"5313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=5;
+wrcopy iw:=[zff$]"6313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=6;
+wrcopy iw:=[zgg$]"7313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=7;
+wrcopy iw:=[zhh$]"8313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=8;
+wrcopy iw:=[zii$]"9313"! r1:=5 r2:=5 c1:=2 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=9;
+};
+
+if (col(REF)[14]$=="Blue" && col(REF)[12]$=="PA" && EC==2){
+wrcopy iw:=[zaa$]"113"! r1:=2 r2:=2 c1:=3 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=1;
+wrcopy iw:=[zbb$]"233"! r1:=2 r2:=2 c1:=3 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=2;
+wrcopy iw:=[zcc$]"333"! r1:=2 r2:=2 c1:=3 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=3;
+wrcopy iw:=[zdd$]"433"! r1:=2 r2:=2 c1:=3 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=4;
+wrcopy iw:=[zee$]"533"! r1:=2 r2:=2 c1:=3 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=5;
+wrcopy iw:=[zff$]"633"! r1:=2 r2:=2 c1:=3 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=6;
+wrcopy iw:=[zgg$]"733"! r1:=2 r2:=2 c1:=3 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=7;
+wrcopy iw:=[zhh$]"833"! r1:=2 r2:=2 c1:=3 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=8;
+wrcopy iw:=[zii$]"933"! r1:=2 r2:=2 c1:=3 c2:=23 ow:=[NormBk$]PA! dc1:=3 dr1:=9;
+};
+
+//2.0 Amp Diff
+//wrcopy iw:=[zaa$]"111"! r1:=5 r2:=5 c1:=2 c2:=%(NC) ow:=[NormBk$]AD! dc1:=3 dr1:=1;
+//wrcopy iw:=[zbb$]"231"! r1:=5 r2:=5 c1:=2 c2:=%(NC) ow:=[NormBk$]AD! dc1:=3 dr1:=2;
+//wrcopy iw:=[zcc$]"331"! r1:=5 r2:=5 c1:=2 c2:=%(NC) ow:=[NormBk$]AD! dc1:=3 dr1:=3;
+//wrcopy iw:=[zdd$]"431"! r1:=5 r2:=5 c1:=2 c2:=%(NC) ow:=[NormBk$]AD! dc1:=3 dr1:=4;
+//wrcopy iw:=[zee$]"531"! r1:=5 r2:=5 c1:=2 c2:=%(NC) ow:=[NormBk$]AD! dc1:=3 dr1:=5;
+//wrcopy iw:=[zff$]"631"! r1:=5 r2:=5 c1:=2 c2:=%(NC) ow:=[NormBk$]AD! dc1:=3 dr1:=6;
+//wrcopy iw:=[zgg$]"731"! r1:=5 r2:=5 c1:=2 c2:=%(NC) ow:=[NormBk$]AD! dc1:=3 dr1:=7;
+//wrcopy iw:=[zhh$]"831"! r1:=5 r2:=5 c1:=2 c2:=%(NC) ow:=[NormBk$]AD! dc1:=3 dr1:=8;
+//wrcopy iw:=[zii$]"911"! r1:=5 r2:=5 c1:=2 c2:=%(NC) ow:=[NormBk$]AD! dc1:=3 dr1:=9;

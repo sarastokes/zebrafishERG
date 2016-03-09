@@ -1,0 +1,30 @@
+NC=wks.ncols;
+//Sets PC column to Disregard
+worksheet -t 2 2;
+//Sets SD column to Disregard
+for (i=4; i<=NC; i+=4){
+   worksheet -t i 2;
+   };
+//Sets SEM column to yErr and masks points
+for (i=5; i<=NC; i+=4){
+   worksheet -t i 3;
+   worksheet -s i 5 i 572;
+   wcellmask;
+   worksheet -s i 574 i 1143;
+   wcellmask;
+   worksheet -s i 1145 i 1714;
+   wcellmask;
+   worksheet -s i 1716 i 2285;
+   wcellmask;
+   worksheet -s i 2287 i 2856;
+   wcellmask;
+   worksheet -s i 2858 i 3427;
+   wcellmask;
+   worksheet -s i 3429 i 4010;
+   wcellmask;
+   };
+//sets N column to disregard
+for (i=6; i<=NC; i+=4){
+   worksheet -t i 2;
+   };
+};

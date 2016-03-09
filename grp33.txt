@@ -1,0 +1,35 @@
+//for graphing peak amp and peak time into 3x3 panel graphs 15Feb2015)
+string GRP$ = "number";
+
+getn (Graph Number) GRP$;
+
+worksheet -s 2 1 10 9;
+plotxy plot:=200 ogl:=[Graph%(GRP$)]1!
+
+worksheet -s 2 10 10 18;
+plotxy plot:=200 ogl:=[Graph%(GRP$)]4!
+
+worksheet -s 2 19 10 27;
+plotxy plot:=200 ogl:=[Graph%(GRP$)]7!
+
+worksheet -s 2 28 10 36;
+plotxy plot:=200 ogl:=[Graph%(GRP$)]2!
+
+worksheet -s 2 37 10 45;
+plotxy plot:=200 ogl:=[Graph%(GRP$)]5!
+
+worksheet -s 2 46 10 54;
+plotxy plot:=200 ogl:=[Graph%(GRP$)]8!
+
+worksheet -s 2 55 10 63;
+plotxy plot:=200 ogl:=[Graph%(GRP$)]3!
+
+worksheet -s 2 64 10 72;
+plotxy plot:=200 ogl:=[Graph%(GRP$)]6!
+
+worksheet -s 2 73 10 81;
+plotxy plot:=200 ogl:=[Graph%(GRP$)]9!
+
+//label -yl Time (ms);
+//label -yl Amplitude(µV); 
+//type (µV);

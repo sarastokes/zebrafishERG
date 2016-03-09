@@ -1,0 +1,202 @@
+//Directory of add-on gERG recordings
+String nim$="source sheet";
+
+NewSet$="12Julred 23Jun_crxA 15Dec_crx6 8Jul_AcrxIR 10Jul_AcrxB 16Feb_crx12 23Feb_crx5 24Feb_crx6 25Feb_wt7 6b2mut 5b2mut 6b2crx 6b2wtcrx crx6blue others";
+stok$ = ABGWPNR;
+
+//Adult WT IR
+if (SL==1){
+GT=3;DPF=7;EC=1;BG=2;TAK = 13;
+nom = $(WL)$(GT)$(DPF)$(EC)$(BG);nomm$ = %[%(stok$),1:1]%(nom$);
+nim = $(WL)$(ND)$(BG);nim$ = $(WL)$(ND)$(BG);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon0]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon1]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon2]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon3]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon4]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon5]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon6]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon8]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon9]StimResp cols:=Ep$(ediv);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon10]StimResp cols:=Ep$(ediv);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon11]StimResp cols:=Ep$(ediv);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon12]StimResp cols:=Ep$(ediv);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.12.15-A.opj" wks:=[Axon13]StimResp cols:=Ep$(ediv);
+col(B)[L]$ = "14JulAx00";
+col(C)[L]$ = "14JulAx01";
+col(D)[L]$ = "14JulAx02";
+col(E)[L]$ = "14JulAx03";
+col(F)[L]$ = "14JulAx04";
+col(G)[L]$ = "14JulAx05";
+col(H)[L]$ = "14JulAx06";
+col(I)[L]$ = "14JulAx08";
+col(J)[L]$ = "14JulAx09";
+col(K)[L]$ = "14JulAx10";
+col(L)[L]$ = "14JulAx11";
+col(M)[L]$ = "14JulAx12";
+col(N)[L]$ = "14JulAx13";
+};
+
+if (SL==2){
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.29.15-Acrx.opj" wks:=[Axon8]StimResp cols:=Ep$(ediv);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.29.15-Acrx.opj" wks:=[Axon9]StimResp cols:=Ep$(ediv);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.29.15-Acrx.opj" wks:=[Axon10]StimResp cols:=Ep$(ediv);
+col(B)[L]$ = "29JunAx08";
+col(C)[L]$ = "29JunAx09";
+col(D)[L]$ = "29JunAx10";
+};
+
+//AdultIR
+if (SL==3){
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.26.15-A.opj" wks:=[Axon11]StimResp cols:=Ep$(ediv);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.26.15-A.opj" wks:=[Axon12]StimResp cols:=Ep$(ediv);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.26.15-A.opj" wks:=[Axon13]StimResp cols:=Ep$(ediv);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.26.15-A.opj" wks:=[Axon14]StimResp cols:=Ep$(ediv);
+col(B)[L]$ = "26JunAx11";
+col(C)[L]$ = "26JunAx12";
+col(D)[L]$ = "26JunAx13";
+col(E)[L]$ = "26JunAx14";
+};
+
+//CRX IR adult PIII
+if (SL==4){
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.7.15-Acr.opj" wks:=[Axon0]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.7.15-Acr.opj" wks:=[Axon1]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.8.15-Acrx.opj" wks:=[Axon0]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.8.15-Acrx.opj" wks:=[Axon1]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.9.15-Acrx.opj" wks:=[Axon2]StimResp cols:=Ep$(sara);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.9.15-Acrx.opj" wks:=[Axon3]StimResp cols:=Ep$(sara);
+col(B)[L]$ = "7JulAx00";
+col(C)[L]$ = "7JulAx01";
+col(D)[L]$ = "8JulAx00";
+col(E)[L]$ = "8JulAx01";
+col(F)[L]$ = "9JulAx02";
+col(G)[L]$ = "9JulAx03";
+};
+
+//Blue CRX 6dpf PIII
+if(SL==5){
+GT=4;DPF=2;EC=1;BG=3;TAK = 3;
+nom$ = $(WL)$(GT)$(DPF)$(EC)$(BG);nomm$ = %[%(stok$),1:1]%(nom$);
+nim = $(WL)$(ND)$(BG);nim$ = $(WL)$(ND)$(BG);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.16.15-6crx.opj" wks:=[Axon2]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "16JunAx02";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.16.15-6crx.opj" wks:=[Axon4]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "16JunAx04";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.16.15-6crx.opj" wks:=[Axon5]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "16JunAx05";
+};
+
+
+//Adult CRX IR
+if (SL==6){
+GT=4;DPF=7;EC=1;BG=1;TAK = 8;
+nom$ = $(WL)$(GT)$(DPF)$(EC)$(BG);nomm$ = %[%(stok$),1:1]%(nom$);
+nim = $(WL)$(ND)$(BG);nim$ = $(WL)$(ND)$(BG);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.3.15-Acrx.opj" wks:=[Axon0]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "3JulAx00";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.3.15-Acrx.opj" wks:=[Axon1]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "3JulAx01";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.3.15-Acrx.opj" wks:=[Axon2]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "3JulAx02";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.3.15-Acrx.opj" wks:=[Axon3]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "3JulAx03";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.3.15-Acrx.opj" wks:=[Axon4]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "3JulAx04";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.6.15-Acrx.opj" wks:=[Axon2]StimResp cols:=Ep$(sara);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "6JulAx02";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.6.15-Acrx.opj" wks:=[Axon3]StimResp cols:=Ep$(sara);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "6JulAx03";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.6.15-Acrx.opj" wks:=[Axon4]StimResp cols:=Ep$(sara);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "6JulAx04";
+};
+
+//Blue adult WT PIII
+if (SL==7){
+GT=3;DPF=7;EC=1;BG=3;TAK = 9;
+nom$ = $(WL)$(GT)$(DPF)$(EC)$(BG);nomm$ = %[%(stok$),1:1]%(nom$);
+nim = $(WL)$(ND)$(BG);nim$ = $(WL)$(ND)$(BG);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.14.15-A.opj" wks:=[Axon1]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "14JulAx01";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.14.15-A.opj" wks:=[Axon2]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "14JulAx02";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.14.15-A.opj" wks:=[Axon3]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "14JulAx03";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.14.15-A.opj" wks:=[Axon4]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "14JulAx04";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.14.15-A.opj" wks:=[Axon5]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "14JulAx05";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.14.15-A.opj" wks:=[Axon6]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "14JulAx06";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.14.15-A.opj" wks:=[Axon7]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "14JulAx07";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.14.15-A.opj" wks:=[Axon8]StimResp cols:=Ep$(rejse);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "14JulAx08";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\7.14.15-A.opj" wks:=[Axon9]StimResp cols:=Ep$(rejse);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "14JulAx09";
+};
+
+//24Feb_crx6
+if(SL==8){
+GT=4;DPF=1;EC=1;BG=1;TAK = 8;
+nom$ = $(WL)$(GT)$(DPF)$(EC)$(BG);nomm$ = %[%(stok$),1:1]%(nom$);
+nim = $(WL)$(ND)$(BG);nim$ = $(WL)$(ND)$(BG);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\12.14.14-5crx.opj" wks:=[Axon0]StimResp cols:=Ep$(sara);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "14DecAx00";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\12.14.14-5crx.opj" wks:=[Axon1]StimResp cols:=Ep$(sara);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "14DecAx01";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\1.12.15-5crx.opj" wks:=[Axon17]StimResp cols:=Ep$(sara);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "17JanAx17";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\2.23.15-5crx.opj" wks:=[Axon1]StimResp cols:=Ep$(sara);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "23FebAx01";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\2.23.15-5crx.opj" wks:=[Axon2]StimResp cols:=Ep$(sara);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "23FebAx02";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\2.23.15-5crx.opj" wks:=[Axon3]StimResp cols:=Ep$(sara);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "23FebAx03";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\2.23.15-5crx.opj" wks:=[Axon5]StimResp cols:=Ep$(sara);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "23FebAx04";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\2.23.15-5crx.opj" wks:=[Axon6]StimResp cols:=Ep$(sara);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "23FebAx06";
+};
+
+//25Feb_wt7
+if (SL==9){
+GT=5;DPF=6;EC=1;BG=1;TAK = 3;
+nom$ = $(WL)$(GT)$(DPF)$(EC)$(BG);nomm$ = %[%(stok$),1:1]%(nom$);
+nim = $(WL)$(ND)$(BG);nim$ = $(WL)$(ND)$(BG);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.15.15-12crx.opj" wks:=[Axon1]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "15JunAx01";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.15.15-12crx.opj" wks:=[Axon5]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "15JunAx05";
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\6.15.15-12crx.opj" wks:=[Axon6]StimResp cols:=Ep$(ediv);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "15JunAx06";
+};
+
+//6b2mut
+if (SL==10){
+
+};
+
+//5b2mut
+if (SL==11){
+
+};
+
+//6b2crx
+if (SL==12){
+GT=5;DPF=2;EC=2;BG=1;TAK = 3;
+nom$ = $(WL)$(GT)$(DPF)$(EC)$(BG);nomm$ = %[%(stok$),1:1]%(nom$);
+nim = $(WL)$(ND)$(BG);nim$ = $(WL)$(ND)$(BG);
+impopj fname:="C:\Users\pattersonss.NIH\Desktop\data\5.26.15-6cb.opj" wks:=[Axon17]StimResp cols:=Ep$(rejse);
+NC=wks.ncols;col($(NC))[P1]$=nomm$;col($(NC))[P2]$=nim$;col($(NC))[L]$ = "26MayAx17";
+};
+
+//6b2wtcrx
+if (SL==13){
+
+};
+
+//crx6blue
+if (SL==14){
+
+};

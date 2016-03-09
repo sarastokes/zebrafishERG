@@ -1,0 +1,350 @@
+
+GrpType$ = "2GT 3GT 2ND 3ND A1 B1 C1 None";
+string aya$="330", byb$="370", cyc$="410", dyd$="450", eye$="490", fyf$="530", gyg$="570", hyh$="610", iyi$="650";
+string kyk$="Output Graph";
+string jyj$="graph type";
+//Other variables: CA=color1, CB=color2, CC=color3
+
+getn (330) jjz:2
+     (370) kkz:2
+     (330) aaz:2
+     (370) bbz:2
+     (410) ccz:2
+     (450) ddz:2
+     (490) eez:2
+     (530) ffz:2
+     (570) ggz:2
+     (610) hhz:2
+     (650) iiz:2;
+
+col(A)[1]$ = "330 book";
+col(A)[2]$ = "370 book";
+col(A)[3]$ = "410 book";
+col(A)[4]$ = "450 book";
+col(A)[5]$ = "490 book";
+col(A)[6]$ = "530 book";
+col(A)[7]$ = "570 book";
+col(A)[8]$ = "610 book";
+col(A)[9]$ = "650 book";
+col(A)[10]$ = "Graph#";
+col(A)[11]$ = "Plot Type";
+col(A)[12]$ = "Color 1";
+col(A)[13]$ = "Color 2";
+col(A)[14]$ = "Color 3";
+
+aya$ = col(B)[1]$;
+byb$ = col(B)[2]$;
+cyc$ = col(B)[3]$;
+dyd$ = col(B)[4]$;
+eye$ = col(B)[5]$;
+fyf$ = col(B)[6]$;
+gyg$ = col(B)[7]$;
+hyh$ = col(B)[8]$;
+iyi$ = col(B)[9]$;
+jyj$ = col(B)[11]$;
+kyk$ = col(B)[10]$;
+CA = col(B)[12];
+CB = col(B)[13];
+CC = col(B)[14];
+
+if (jyj$=="GT2"){
+  if (aaz==1){
+  plotxy iy:=[aya$]1.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]1!;
+  plotxy iy:=[aya$]1.0!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]1!;
+  };
+
+  if (bbz==1){
+  plotxy iy:=[byb$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]4!;
+  plotxy iy:=[byb$]2.0!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]4!;
+  };
+
+  if (ccz==1){
+  plotxy iy:=[cyc$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]7!;
+  plotxy iy:=[cyc$]2.0!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]7!;
+  };
+
+  if (ddz==1){
+  plotxy iy:=[dyd$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]2!;
+  plotxy iy:=[dyd$]2.0!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]2!;
+  };
+
+  if (eez==1){
+  plotxy iy:=[eye$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]5!;
+  plotxy iy:=[eye$]2.0!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]5!;
+  };
+
+  if(ffz==1){
+  plotxy iy:=[fyf$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]8!;
+  plotxy iy:=[fyf$]2.0!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]8!;
+  };
+
+  if(ggz==1){
+  plotxy iy:=[gyg$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]3!;
+  plotxy iy:=[gyg$]2.0!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]3!;
+  };
+
+  if(hhz==1){
+  plotxy iy:=[hyh$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]6!;
+  plotxy iy:=[hyh$]2.0!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]6!;
+  };
+
+  if(iiz==1){
+  plotxy iy:=[iyi$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]9!;
+  plotxy iy:=[iyi$]2.0!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]9!;
+  };
+};
+
+//One genotype at 3 different NDs
+if(jyj$=="ND3"){
+  if (aaz==1){
+  plotxy iy:=[aya$]1.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]1!;
+  plotxy iy:=[aya$]1.5!(1,3,5) plot:=200 color:=CB ogl:=[kyk$]1!;
+  plotxy iy:=[aya$]2.0!(1,3,5) plot:=200 color:=CC ogl:=[kyk$]1!;
+  };
+
+  if (bbz==1){
+  plotxy iy:=[byb$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]4!;
+  plotxy iy:=[byb$]2.5!(1,3,5) plot:=200 color:=CB ogl:=[kyk$]4!;
+  plotxy iy:=[byb$]3.0!(1,3,5) plot:=200 color:=CC ogl:=[kyk$]4!;
+  };
+
+  if (ccz==1){
+  plotxy iy:=[cyc$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]7!;
+  plotxy iy:=[cyc$]2.5!(1,3,5) plot:=200 color:=CB ogl:=[kyk$]7!;
+  plotxy iy:=[cyc$]3.0!(1,3,5) plot:=200 color:=CC ogl:=[kyk$]7!;
+  };
+
+  if (ddz==1){
+  plotxy iy:=[dyd$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]2!;
+  plotxy iy:=[dyd$]2.5!(1,3,5) plot:=200 color:=CB ogl:=[kyk$]2!;
+  plotxy iy:=[dyd$]3.0!(1,3,5) plot:=200 color:=CC ogl:=[kyk$]2!;
+  };
+
+  if (eez==1){
+  plotxy iy:=[eye$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]5!;
+  plotxy iy:=[eye$]2.5!(1,3,5) plot:=200 color:=CB ogl:=[kyk$]5!;
+  plotxy iy:=[eye$]3.0!(1,3,5) plot:=200 color:=CC ogl:=[kyk$]5!;
+  };
+
+  if(ffz==1){
+  plotxy iy:=[fyf$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]8!;
+  plotxy iy:=[fyf$]2.5!(1,3,5) plot:=200 color:=CB ogl:=[kyk$]8!;
+  plotxy iy:=[fyf$]3.0!(1,3,5) plot:=200 color:=CC ogl:=[kyk$]8!;
+  };
+
+  if(ggz==1){
+  plotxy iy:=[gyg$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]3!;
+  plotxy iy:=[gyg$]2.5!(1,3,5) plot:=200 color:=CB ogl:=[kyk$]3!;
+  plotxy iy:=[gyg$]3.0!(1,3,5) plot:=200 color:=CC ogl:=[kyk$]3!;
+  };
+
+  if(hhz==1){
+  plotxy iy:=[hyh$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]6!;
+  plotxy iy:=[hyh$]2.5!(1,3,5) plot:=200 color:=CB ogl:=[kyk$]6!;
+  plotxy iy:=[hyh$]3.0!(1,3,5) plot:=200 color:=CC ogl:=[kyk$]6!;
+  };
+
+  if(iiz==1){
+  plotxy iy:=[iyi$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]9!;
+  plotxy iy:=[iyi$]2.5!(1,3,5) plot:=200 color:=CB ogl:=[kyk$]9!;
+  plotxy iy:=[iyi$]3.0!(1,3,5) plot:=200 color:=CC ogl:=[kyk$]9!;
+  };
+};
+
+//One genotype at 3 different NDs
+if(jyj$=="ND3w"){
+  if (aaz==1){
+  plotxy iy:=[aya$]1.0!(1,7,9) plot:=200 color:=CA ogl:=[kyk$]1!;
+  plotxy iy:=[aya$]1.5!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]1!;
+  plotxy iy:=[aya$]2.0!(1,7,9) plot:=200 color:=CC ogl:=[kyk$]1!;
+  };
+
+  if (bbz==1){
+  plotxy iy:=[byb$]2.0!(1,7,9) plot:=200 color:=CA ogl:=[kyk$]4!;
+  plotxy iy:=[byb$]2.5!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]4!;
+  plotxy iy:=[byb$]3.0!(1,7,9) plot:=200 color:=CC ogl:=[kyk$]4!;
+  };
+
+  if (ccz==1){
+  plotxy iy:=[cyc$]2.0!(1,7,9) plot:=200 color:=CA ogl:=[kyk$]7!;
+  plotxy iy:=[cyc$]2.5!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]7!;
+  plotxy iy:=[cyc$]3.0!(1,7,9) plot:=200 color:=CC ogl:=[kyk$]7!;
+  };
+
+  if (ddz==1){
+  plotxy iy:=[dyd$]2.0!(1,7,9) plot:=200 color:=CA ogl:=[kyk$]2!;
+  plotxy iy:=[dyd$]2.5!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]2!;
+  plotxy iy:=[dyd$]3.0!(1,7,9) plot:=200 color:=CC ogl:=[kyk$]2!;
+  };
+
+  if (eez==1){
+  plotxy iy:=[eye$]2.0!(1,7,9) plot:=200 color:=CA ogl:=[kyk$]5!;
+  plotxy iy:=[eye$]2.5!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]5!;
+  plotxy iy:=[eye$]3.0!(1,7,9) plot:=200 color:=CC ogl:=[kyk$]5!;
+  };
+
+  if(ffz==1){
+  plotxy iy:=[fyf$]2.0!(1,7,9) plot:=200 color:=CA ogl:=[kyk$]8!;
+  plotxy iy:=[fyf$]2.5!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]8!;
+  plotxy iy:=[fyf$]3.0!(1,7,9) plot:=200 color:=CC ogl:=[kyk$]8!;
+  };
+
+  if(ggz==1){
+  plotxy iy:=[gyg$]2.0!(1,7,9) plot:=200 color:=CA ogl:=[kyk$]3!;
+  plotxy iy:=[gyg$]2.5!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]3!;
+  plotxy iy:=[gyg$]3.0!(1,7,9) plot:=200 color:=CC ogl:=[kyk$]3!;
+  };
+
+  if(hhz==1){
+  plotxy iy:=[hyh$]2.0!(1,7,9) plot:=200 color:=CA ogl:=[kyk$]6!;
+  plotxy iy:=[hyh$]2.5!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]6!;
+  plotxy iy:=[hyh$]3.0!(1,7,9) plot:=200 color:=CC ogl:=[kyk$]6!;
+  };
+
+  if(iiz==1){
+  plotxy iy:=[iyi$]2.0!(1,7,9) plot:=200 color:=CA ogl:=[kyk$]9!;
+  plotxy iy:=[iyi$]2.5!(1,7,9) plot:=200 color:=CB ogl:=[kyk$]9!;
+  plotxy iy:=[iyi$]3.0!(1,7,9) plot:=200 color:=CC ogl:=[kyk$]9!;
+  };
+};
+
+if (jyj$=="A1"){
+  if (aaz==1){
+  plotxy iy:=[aya$]1.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]1!;
+  };
+
+  if (bbz==1){
+  plotxy iy:=[byb$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]4!;
+  };
+
+  if (ccz==1){
+  plotxy iy:=[cyc$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]7!;
+  };
+
+  if (ddz==1){
+  plotxy iy:=[dyd$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]2!;
+  };
+
+  if (eez==1){
+  plotxy iy:=[eye$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]5!;
+  };
+
+  if(ffz==1){
+  plotxy iy:=[fyf$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]8!;
+  };
+
+  if(ggz==1){
+  plotxy iy:=[gyg$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]3!;
+  };
+
+  if(hhz==1){
+  plotxy iy:=[hyh$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]6!;
+  };
+
+  if(iiz==1){
+  plotxy iy:=[iyi$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]9!;
+  };
+};
+
+jyj$=col(C)[11]$;
+
+if (jyj$==B1){
+aya$ = col(C)[1]$;
+byb$ = col(C)[2]$;
+cyc$ = col(C)[3]$;
+dyd$ = col(C)[4]$;
+eye$ = col(C)[5]$;
+fyf$ = col(C)[6]$;
+gyg$ = col(C)[7]$;
+hyh$ = col(C)[8]$;
+iyi$ = col(C)[9]$;
+CA = col(C)[12];
+};
+if (jyj$==B1){
+  if (aaz==1){
+  plotxy iy:=[aya$]1.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]1!;
+  };
+
+  if (bbz==1){
+  plotxy iy:=[byb$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]4!;
+  };
+
+  if (ccz==1){
+  plotxy iy:=[cyc$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]7!;
+  };
+
+  if (ddz==1){
+  plotxy iy:=[dyd$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]2!;
+  };
+
+  if (eez==1){
+  plotxy iy:=[eye$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]5!;
+  };
+
+  if(ffz==1){
+  plotxy iy:=[fyf$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]8!;
+  };
+
+  if(ggz==1){
+  plotxy iy:=[gyg$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]3!;
+  };
+
+  if(hhz==1){
+  plotxy iy:=[hyh$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]6!;
+  };
+
+  if(iiz==1){
+  plotxy iy:=[iyi$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]9!;
+  };
+};
+
+jyj$=col(D)[11]$;
+
+if (jyj$==C1){
+aya$ = col(D)[1]$;
+byb$ = col(D)[2]$;
+cyc$ = col(D)[3]$;
+dyd$ = col(D)[4]$;
+eye$ = col(D)[5]$;
+fyf$ = col(D)[6]$;
+gyg$ = col(D)[7]$;
+hyh$ = col(D)[8]$;
+iyi$ = col(D)[9]$;
+CA = col(D)[12];
+
+  if (aaz==1){
+  plotxy iy:=[aya$]1.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]1!;
+  };
+
+  if (bbz==1){
+  plotxy iy:=[byb$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]4!;
+  };
+
+  if (ccz==1){
+  plotxy iy:=[cyc$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]7!;
+  };
+
+  if (ddz==1){
+  plotxy iy:=[dyd$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]2!;
+  };
+
+  if (eez==1){
+  plotxy iy:=[eye$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]5!;
+  };
+
+  if(ffz==1){
+  plotxy iy:=[fyf$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]8!;
+  };
+
+  if(ggz==1){
+  plotxy iy:=[gyg$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]3!;
+  };
+
+  if(hhz==1){
+  plotxy iy:=[hyh$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]6!;
+  };
+
+  if(iiz==1){
+  plotxy iy:=[iyi$]2.0!(1,3,5) plot:=200 color:=CA ogl:=[kyk$]9!;
+  };
+};

@@ -1,0 +1,876 @@
+page.active$="Import";
+%N=%H;
+import=0;
+if(col(Ir)[1]>0){
+  import=1;
+  getn(skip import) import:2 (Reimport or keep spectral data);
+  };
+if(import==0){
+  //clear old data
+  for(c=4;c<=6;c+=1){
+    get col($(c)) -e last;
+    for(r=1;r<=last;r+=1){
+      col($(c))[$(r)]$="";
+      }};
+  page.active$="Spectrum";
+  get col(1) -e last;
+  for(r=1;r<=last;r+=1){
+      col(1)[$(r)]$="";
+      };
+  page.active$="Import";
+  //get list of axon books
+  %B="?";
+  AxonBooks=1;
+  doc -e W {if(%[%H, 5]=="Axon"){%B=%B %H;AxonBooks+=1}}; 
+  
+  //select books for fit
+  index=1;
+  for(i=1;i<=30;i+=1){
+    abf=1;
+    for(j=1;j<=AxonBooks;j+=1){
+      if(%[%B,#j]==col(1)[i]$){
+         abf=j;
+         break; 
+         }};
+
+    startpoint=1;
+    if (col(start)[i]>0){startpoint=col(start)[i]}; 
+    if (col(end)[i]>0){endpoint=col(end)[i]};
+    getn (Book) abf:B (first point) startpoint (last point) endpoint (select data to fit);
+    if(abf==1){break};
+    %(%H,1,i)="%[%B,#abf]";
+    page.active$="Spectrum";
+    %(%H,1,i)="%[%B,#abf]";
+    page.active$="Import";
+    %(%H,2,i)=startpoint;
+    %(%H,3,i)=endpoint;
+    Range x1=[%(%H,1,i)]Irrad-wl-Amp!col(hv);
+    Range x2=[%(%H,1,i)]Irrad-wl-Amp!col(wl);
+    Range y1=[%(%H,1,i)]Irrad-wl-Amp!col(mV);
+    for(k=startpoint;k<=endpoint;k+=1){
+      col(Ir)[index]=x1[k];
+      col(wl)[index]=x2[k];
+      col(Amp)[index]=y1[k];
+      index+=1;
+//    type -s $(index);
+      };
+    };
+  };
+//select fitfunc and fit data
+uniformsign=2;
+skipfit=0;
+%A="SetPos DontChange SetNeg SetPosAs0 SetNegAs0 DeletePosSetPos DeleteNeg";
+skipfit=0;
+page.active$="Spectrum";
+if(col(mean)[27]$=="dark"){f=5} else {f=3};
+if(col(mean)[10]){f=col(mean)[10]};
+
+page.active$="Import";
+%B="K5HrgbPu K6HrgbPuKrgbKu K8HrgbPu K5HrgbPuK10Ku k8rod k8g520 k5spikes K8A2EKK K6A2EKK k8r541 k8r542 k8r543 k8r544 k8r545 k8r546 k8r547 k8r549 k8r550 k8r551 k8r552 k8r553 k8r554 k8r555 k8556 k8r557 k8r558 k8r559 k8r560 k8r561 k8r562 k8r563 k8r564 k8r565 k8r566 k8r567 k8r568 k8r569";
+getn (Select function) f:B (set to same sign) uniformsign:A (skip fit) skipfit:2  (Spectral fit);
+if(Uniformsign==1){
+  col(Amp)=Abs(col(Amp));
+  };
+if(Uniformsign==3){
+  col(Amp)=-Abs(col(Amp));
+  };
+if(Uniformsign==4){
+  AmpPoints=wks.col6.Nrows;
+  for(i=1;i<=AmpPoints;i+=1){
+    if(col(Amp)[i]>0){col(Amp)[i]=0};
+    }};
+if(Uniformsign==5){
+  AmpPoints=wks.col6.Nrows;
+  for(i=1;i<=AmpPoints;i+=1){
+    if(col(Amp)[i]<0){col(Amp)[i]=0};
+    }};
+if(Uniformsign==6){
+  AmpPoints=wks.col6.Nrows;
+  for(i=1;i<=AmpPoints;i+=1){
+    if(col(Amp)[i]>0){col(Amp)[i]$=""};
+    if(col(Amp)[i]<0){col(Amp)[i]=Abs(col(Amp)[i])}; 
+    }};
+if(Uniformsign==7){
+  AmpPoints=wks.col6.Nrows;
+  for(i=1;i<=AmpPoints;i+=1){
+    if(col(Amp)[i]<0){col(Amp)[i]$=""};
+    }};
+
+//group processing of k47multi functions
+if(f<14){ffff=1};
+if(f>13){ffff=2};
+
+if(skipfit==0){
+  nlsf.init();
+  nlsf.func$=%[%B,#f];
+  get col(Amp) -e last;
+//nlsf.func$=K5HrgbPu;
+  nlsf.x1$ = [%H]Import!col(Ir); 
+  nlsf.x2$ = [%H]IMport!col(wl);
+  nlsf.y$ = [%H]Import!col(Amp);
+  nlsf.dataBegin= 1;
+  nlsf.dataEnd=last;
+  };
+if(f==1 && skipfit==0){
+  nlsf.p1=3;
+  nlsf.p2=20;
+  nlsf.p3=20;
+  nlsf.p4=10;
+  nlsf.p5=10;
+  nlsf.lb1=-1;
+  nlsf.lb2=-500;
+  nlsf.lb3=-500;
+  nlsf.lb4=-500;
+  nlsf.lb5=-500;
+  };
+if(f==2 && skipfit==0){
+  nlsf.p1=3;
+  nlsf.p2=2;
+  nlsf.p3=1;
+  nlsf.p4=1;
+  nlsf.p5=1;
+  nlsf.p6=1;
+  nlsf.lb1=-1;
+  nlsf.lb2=-1;
+  nlsf.lb3=-50;
+  nlsf.lb4=-50;
+  nlsf.lb5=-50;
+  nlsf.lb6=-50;
+  };
+if(f==3 && skipfit==0){
+  nlsf.p1=4;
+  nlsf.p2=4;
+  nlsf.p3=3.5;
+  nlsf.p4=3;
+  nlsf.p5=20;
+  nlsf.p6=20;
+  nlsf.p7=10;
+  nlsf.p8=10;
+  nlsf.lb1=0;
+  nlsf.lb2=0;
+  nlsf.lb3=0;
+  nlsf.lb4=0;
+  nlsf.lb5=-500;
+  nlsf.lb6=-500;
+  nlsf.lb7=-500;
+  nlsf.lb8=-500;
+  };
+
+if(f>9 && skipfit==0){
+  nlsf.p1=4;
+  nlsf.p2=4;
+  nlsf.p3=3.5;
+  nlsf.p4=3;
+  nlsf.p5=20;
+  nlsf.p6=20;
+  nlsf.p7=10;
+  nlsf.p8=10;
+  nlsf.lb1=0;
+  nlsf.lb2=0;
+  nlsf.lb3=0;
+  nlsf.lb4=0;
+  nlsf.lb5=-500;
+  nlsf.lb6=-500;
+  nlsf.lb7=-500;
+  nlsf.lb8=-500;
+  };
+
+if(f==4 && skipfit==0){
+  nlsf.p1=3;
+  nlsf.p2=1;
+  nlsf.p3=1;
+  nlsf.p4=1;
+  nlsf.p5=1;
+  nlsf.lb1=-1;
+  nlsf.lb2=-50;
+  nlsf.lb3=-50;
+  nlsf.lb4=-50;
+  nlsf.lb5=-50;
+  };
+if(f==5 && skipfit==0){
+  nlsf.p1=3;
+  nlsf.p2=3;
+  nlsf.p3=2;
+  nlsf.p4=2;
+  nlsf.p5=10;
+  nlsf.p6=10;
+  nlsf.p7=5;
+  nlsf.p8=5;
+  nlsf.lb1=-1;
+  nlsf.lb2=-1;
+  nlsf.lb3=-1;
+  nlsf.lb4=-1;
+  nlsf.lb5=-50;
+  nlsf.lb6=-50;
+  nlsf.lb7=-50;
+  nlsf.lb8=-50;
+  };
+if(f==6 && skipfit==0){
+  nlsf.p1=3;
+  nlsf.p2=3;
+  nlsf.p3=2;
+  nlsf.p4=2;
+  nlsf.p5=10;
+  nlsf.p6=10;
+  nlsf.p7=5;
+  nlsf.p8=5;
+  nlsf.lb1=-1;
+  nlsf.lb2=-1;
+  nlsf.lb3=-1;
+  nlsf.lb4=-1;
+  nlsf.lb5=-50;
+  nlsf.lb6=-50;
+  nlsf.lb7=-50;
+  nlsf.lb8=-50;
+  };
+if(f==7 && skipfit==0){
+  nlsf.p1=3;
+  nlsf.p2=1;
+  nlsf.p3=1;
+  nlsf.p4=1;
+  nlsf.p5=1;
+  nlsf.lb1=-1;
+  nlsf.lb2=-500;
+  nlsf.lb3=-500;
+  nlsf.lb4=-500;
+  nlsf.lb5=-500;
+  };
+if(f==8 && skipfit==0){
+  nlsf.p1=4;
+  nlsf.p2=4;
+  nlsf.p3=3.5;
+  nlsf.p4=3;
+  nlsf.p5=20;
+  nlsf.p6=20;
+  nlsf.p7=10;
+  nlsf.p8=10;
+  nlsf.lb1=0;
+  nlsf.lb2=0;
+  nlsf.lb3=0;
+  nlsf.lb4=0;
+  nlsf.lb5=-500;
+  nlsf.lb6=-500;
+  nlsf.lb7=-500;
+  nlsf.lb8=-500;
+  };
+if(f==9 && skipfit==0){
+  nlsf.p1=3;
+  nlsf.p2=20;
+  nlsf.p3=20;
+  nlsf.p4=20;
+  nlsf.p5=10;
+  nlsf.p6=10;
+  nlsf.lb1=-1;
+  nlsf.lb2=-500;
+  nlsf.lb3=-500;
+  nlsf.lb4=-500;
+  nlsf.lb5=-500;
+  nlsf.lb6=-500;
+  };
+
+if(skipfit==0){
+  nlsf.iterate(99);
+  };
+
+
+//retrieve fit values
+if(f==1 && skipfit==0){
+  SDlogk=nlsf.e1;
+  SDVr=nlsf.e2;
+  SDVg=nlsf.e3;
+  SDVb=nlsf.e4;
+  SDVu=nlsf.e5;
+  };
+if(f==2 && skipfit==0){
+  SDlogkrgb=nlsf.e1;
+  SDlogku=nlsf.e2;
+  SDVr=nlsf.e3;
+  SDVg=nlsf.e4;
+  SDVb=nlsf.e5;
+  SDVu=nlsf.e6;
+  };
+if(f==3 && skipfit==0){
+  SDlogkr=nlsf.e1;
+  SDlogkg=nlsf.e2;
+  SDlogkb=nlsf.e3;
+  SDlogku=nlsf.e4;
+  SDVr=nlsf.e5;
+  SDVg=nlsf.e6;
+  SDVb=nlsf.e7;
+  SDVu=nlsf.e8;
+  };
+if(f>9 && skipfit==0){
+  SDlogkr=nlsf.e1;
+  SDlogkg=nlsf.e2;
+  SDlogkb=nlsf.e3;
+  SDlogku=nlsf.e4;
+  SDVr=nlsf.e5;
+  SDVg=nlsf.e6;
+  SDVb=nlsf.e7;
+  SDVu=nlsf.e8;
+  };
+if(f==4 && skipfit==0){
+  SDlogkrgb=nlsf.e1;
+  SDlogku=nlsf.e1;
+  SDVr=nlsf.e2;
+  SDVg=nlsf.e3;
+  SDVb=nlsf.e4;
+  SDVu=nlsf.e5;
+  };
+if(f==5 && skipfit==0){
+  SDlogkr=nlsf.e1;
+  SDlogkg=nlsf.e2;
+  SDlogkb=nlsf.e3;
+  SDlogku=nlsf.e4;
+  SDVr=nlsf.e5;
+  SDVg=nlsf.e6;
+  SDVb=nlsf.e7;
+  SDVu=nlsf.e8;
+  };
+if(f==6 && skipfit==0){
+  SDlogkr=nlsf.e1;
+  SDlogkg=nlsf.e2;
+  SDlogkb=nlsf.e3;
+  SDlogku=nlsf.e4;
+  SDVr=nlsf.e5;
+  SDVg=nlsf.e6;
+  SDVb=nlsf.e7;
+  SDVu=nlsf.e8;
+  };
+if(f==7 && skipfit==0){
+  SDlogk=nlsf.e1;
+  SDVr=nlsf.e2;
+  SDVg=nlsf.e3;
+  SDVb=nlsf.e4;
+  SDVu=nlsf.e5;
+  };
+if(f==8 && skipfit==0){
+  SDlogkr=nlsf.e1;
+  SDlogkg=nlsf.e2;
+  SDlogkb=nlsf.e3;
+  SDlogku=nlsf.e4;
+  SDVr=nlsf.e5;
+  SDVg=nlsf.e6;
+  SDVb=nlsf.e7;
+  SDVu=nlsf.e8;
+  };
+if(f==9 && skipfit==0){
+  SDlogk=nlsf.e1;
+  SDVr2=nlsf.e2;
+  SDVr1=nlsf.e3;
+  SDVg=nlsf.e4;
+  SDVb=nlsf.e5;
+  SDVu=nlsf.e6;
+  };
+
+if(skipfit==0){
+  if("%[%H,1:5]"=="Graph"){win -cd %H};
+  page.active$="Spectrum";
+  PktoPkSegment$="400to800ms 400to1250ms";
+  minmaxsegment=PktoPkSegment.FindToken(col(1)[15]$); 
+  getn (response segment) minmaxsegment:PktoPkSegment$ (select response segment for min/max & pk/pk);
+  col(1)[15]$=PktoPkSegment.gettoken(minmaxsegment)$;
+  win -a %N;
+  page.active$="Import";
+  range responsemean=[%(%H,1,1)]StimResp!col(mean);
+  range msec=[%(%H,1,1)]StimResp!col(Time);
+//decode minmaxsement
+  if(minmaxsegment==1){
+    beginsegment=0.2*responsemean.nrows;
+    endsegment=0.4*responsemean.nrows;
+    };
+  if(minmaxsegment==2){
+    beginsegment=*responsemean.nrows;
+    endsegment=0.625*responsemean.nrows;
+    };
+  limit responsemean -b beginsegment -e endsegment;
+  mintime=msec[limit.imin]-400;
+  maxtime=msec[limit.imax]-400;
+  limit col(Amp);
+  };
+
+if(skipfit==0){
+//clear parameter labels and values
+  page.active$="Spectrum";
+  for(i=1;i<=60;i+=1){
+    //%(%H,1,i)="";
+    %(%H,2,i)="";
+    %(%H,3,i)="";
+    %(%H,4,i)="";
+    };
+  };
+
+if(skipfit==0){
+//write fit parameter labels
+  if(f==1){
+    %(%H,2,1)="logk";
+    %(%H,2,2)="logk";
+    %(%H,2,3)="logk";
+    %(%H,2,4)="logk";
+    };
+  if(f==2){
+    %(%H,2,1)="logkrgb";
+    %(%H,2,2)="logkrgb";
+    %(%H,2,3)="logkrgb";
+    %(%H,2,4)="logku";
+    }; 
+  if(f==3){
+    %(%H,2,1)="logkr";
+    %(%H,2,2)="logkg";
+    %(%H,2,3)="logkb";
+    %(%H,2,4)="logku";
+    };
+  if(f>9){
+    %(%H,2,1)="logkr";
+    %(%H,2,2)="logkg";
+    %(%H,2,3)="logkb";
+    %(%H,2,4)="logku";
+    };
+  if(f==4){
+    %(%H,2,1)="logkrgb";
+    %(%H,2,2)="logkrgb";
+    %(%H,2,3)="logkrgb";
+    %(%H,2,4)="logkrgb-1";
+    };
+  if(f==5){
+    %(%H,2,1)="logkr";
+    %(%H,2,2)="logkrod";
+    %(%H,2,3)="logkb";
+    %(%H,2,4)="logku";
+    }; 
+  if(f==6){
+    %(%H,2,1)="logkr";
+    %(%H,2,2)="logk520";
+    %(%H,2,3)="logkb";
+    %(%H,2,4)="logku";
+    }; 
+  if(f==7){
+    %(%H,2,1)="logk";
+    %(%H,2,2)="logk";
+    %(%H,2,3)="logk";
+    %(%H,2,4)="logk";
+    };
+  if(f==8){
+    %(%H,2,1)="logkr612";
+    %(%H,2,2)="logkg492";
+    %(%H,2,3)="logkb";
+    %(%H,2,4)="logku";
+    };
+  if(f==9){
+    %(%H,2,1)="logk";
+    %(%H,2,2)="logk";
+    %(%H,2,3)="logk";
+    };
+  if(f==9){%(%H,2,4)="Vr612"};  
+  %(%H,2,5)="Vr";if(f==8){%(%H,2,5)="Vr612"};if(f==9){%(%H,2,5)="Vr556"};if(f==9){%(%H,2,5)="Vr548"};if(f==10){%(%H,2,5)="Vr541"};if(f==11){%(%H,2,5)="Vr542"};if(f==12){%(%H,2,5)="Vr543"};if(f==13){%(%H,2,5)="Vr544"};if(f==14){%(%H,2,5)="Vr545"};if(f==15){%(%H,2,5)="Vr546"};if(f==16){%(%H,2,5)="Vr547"};if(f==17){%(%H,2,5)="Vr549"};if(f==18){%(%H,2,5)="Vr550"};
+if(f==19){%(%H,2,5)="Vr550"};if(f==20){%(%H,2,5)="Vr551"};if(f==21){%(%H,2,5)="Vr552"};if(f==22){%(%H,2,5)="Vr553"};if(f==23){%(%H,2,5)="Vr554"};if(f==24){%(%H,2,5)="Vr555"};if(f==25){%(%H,2,5)="Vr557"};if(f==26){%(%H,2,5)="Vr558"};if(f==27){%(%H,2,5)="Vr559"};
+if(f==28){%(%H,2,5)="Vr560"};if(f==29){%(%H,2,5)="Vr561"};if(f==30){%(%H,2,5)="Vr562"};if(f==31){%(%H,2,5)="Vr563"};if(f==32){%(%H,2,5)="Vr564"};if(f==33){%(%H,2,5)="Vr565"};if(f==34){%(%H,2,5)="Vr566"};if(f==35){%(%H,2,5)="Vr567"};if(f==36){%(%H,2,5)="Vr568"};if(f==37){%(%H,2,5)="Vr569"};if(f==38){%(%H,2,5)="Vr570"};
+  %(%H,2,6)="Vg";if(f==5){%(%H,2,6)="Vrod"};if(f==6){%(%H,2,6)="Vg520"};if(f==8){%(%H,2,6)="Vg492"};
+  %(%H,2,7)="Vb";
+  %(%H,2,8)="Vu";
+  %(%H,2,9)="npoints";    %(%H,3,9)=nlsf.npoints;
+  %(%H,2,10)="fitfunc";   %(%H,3,10)=f;			col(SD)[10]$=nlsf.func$;
+  %(%H,2,11)="iter";      %(%H,3,11)=nlsf.niter;
+  %(%H,2,12)="r^2";       %(%H,3,12)=nlsf.cod;
+  %(%H,2,13)="RGBU type";
+  %(%H,2,14)="Vmin µV|ms";      %(%H,3,14)=limit.ymin;     %(%H,4,14)=mintime;
+  %(%H,2,15)="Vmax µV|ms";      %(%H,3,15)=limit.ymax;     %(%H,4,15)=maxtime;
+  %(%H,2,16)="hvmin";     //%(%H,3,16)=k25;
+  %(%H,2,17)="hvmean";     //%(%H,3,17)=k50;
+  %(%H,2,18)="hvmax";     //%(%H,3,18)=k75;
+  };
+
+//write experiment parameter labels
+%(%H,2,19)="Bkgd ND";
+%(%H,2,20)="Cell#";     //%(%H,3,20)=%K
+%(%H,2,21)="RespType";  //%(%H,3,21)=    %(%H,4,21)=
+%(%H,2,22)="CellType";  //%(%H,3,22)=    %(%H,4,22)=
+%(%H,2,23)="Graph#";
+%(%H,2,24)="Drugs";
+%(%H,2,25)="ZFstrain";
+%(%H,2,26)="Analysis";
+%(%H,2,27)="BkgdColr";
+%(%H,2,28)="PlotType";
+%(%H,2,29)="Measure/scale";
+%(%H,2,30)="Extra ND";
+
+//write curve parameter labels
+%(%H,2,31)="wl20min";
+%(%H,2,32)="wl20max";
+%(%H,2,33)="wl20nul1";
+%(%H,2,34)="wl20nul2";
+%(%H,2,35)="wl20nul3";
+
+%(%H,2,41)="wl50min";
+%(%H,2,42)="wl50max";
+%(%H,2,43)="wl50nul1";
+%(%H,2,44)="wl50nul2";
+%(%H,2,45)="wl50nul3";
+
+%(%H,2,51)="wl80min";
+%(%H,2,52)="wl80max";
+%(%H,2,53)="wl80nul1";
+%(%H,2,54)="wl80nul2";
+%(%H,2,55)="wl80nul3";
+
+//write fit values
+  if(f==1 && skipfit==0){
+    %(%H,3,1)=logk;    %(%H,4,1)=SDlogk;
+    %(%H,3,2)=logk;    %(%H,4,2)=SDlogk;
+    %(%H,3,3)=logk;    %(%H,4,3)=SDlogk;
+    %(%H,3,4)=logk;    %(%H,4,4)=SDlogk;
+    %(%H,3,5)=Vr;      %(%H,4,5)=SDVr;
+    %(%H,3,6)=Vg;      %(%H,4,6)=SDVg;
+    %(%H,3,7)=Vb;      %(%H,4,7)=SDVb;
+    %(%H,3,8)=Vu;      %(%H,4,8)=SDVu;
+    };
+  if(f==2 && skipfit==0){
+    %(%H,3,1)=logkrgb; %(%H,4,1)=SDlogkrgb;
+    %(%H,3,2)=logkrgb; %(%H,4,2)=SDlogkrgb;
+    %(%H,3,3)=logkrgb; %(%H,4,3)=SDlogkrgb;
+    %(%H,3,4)=logku;   %(%H,4,4)=SDlogku;
+    %(%H,3,5)=Vr;      %(%H,4,5)=SDVr;
+    %(%H,3,6)=Vg;      %(%H,4,6)=SDVg;
+    %(%H,3,7)=Vb;      %(%H,4,7)=SDVb;
+    %(%H,3,8)=Vu;      %(%H,4,8)=SDVu;
+    };
+  if(f==3 && skipfit==0){
+    %(%H,3,1)=logkr;   %(%H,4,1)=SDlogkr;
+    %(%H,3,2)=logkg;   %(%H,4,2)=SDlogkg;
+    %(%H,3,3)=logkb;   %(%H,4,3)=SDlogkb;
+    %(%H,3,4)=logku;   %(%H,4,4)=SDlogku;
+    %(%H,3,5)=Vr;      %(%H,4,5)=SDVr;
+    %(%H,3,6)=Vg;      %(%H,4,6)=SDVg;
+    %(%H,3,7)=Vb;      %(%H,4,7)=SDVb;
+    %(%H,3,8)=Vu;      %(%H,4,8)=SDVu;
+    };
+  if(f>9 && skipfit==0){
+    %(%H,3,1)=logkr;   %(%H,4,1)=SDlogkr;
+    %(%H,3,2)=logkg;   %(%H,4,2)=SDlogkg;
+    %(%H,3,3)=logkb;   %(%H,4,3)=SDlogkb;
+    %(%H,3,4)=logku;   %(%H,4,4)=SDlogku;
+    %(%H,3,5)=Vr;      %(%H,4,5)=SDVr;
+    %(%H,3,6)=Vg;      %(%H,4,6)=SDVg;
+    %(%H,3,7)=Vb;      %(%H,4,7)=SDVb;
+    %(%H,3,8)=Vu;      %(%H,4,8)=SDVu;
+    };
+  if(f==4 && skipfit==0){
+    %(%H,3,1)=logk; %(%H,4,1)=SDlogkrgb;
+    %(%H,3,2)=logk; %(%H,4,2)=SDlogkrgb;
+    %(%H,3,3)=logk; %(%H,4,3)=SDlogkrgb;
+    %(%H,3,4)=logk-1;   %(%H,4,4)=SDlogku;
+    %(%H,3,5)=Vr;      %(%H,4,5)=SDVr;
+    %(%H,3,6)=Vg;      %(%H,4,6)=SDVg;
+    %(%H,3,7)=Vb;      %(%H,4,7)=SDVb;
+    %(%H,3,8)=Vu;      %(%H,4,8)=SDVu;
+    };
+  if(f==5 && skipfit==0){
+    %(%H,3,1)=logkr;   %(%H,4,1)=SDlogkr;
+    %(%H,3,2)=logkg;   %(%H,4,2)=SDlogkg;
+    %(%H,3,3)=logkb;   %(%H,4,3)=SDlogkb;
+    %(%H,3,4)=logku;   %(%H,4,4)=SDlogku;
+    %(%H,3,5)=Vr;      %(%H,4,5)=SDVr;
+    %(%H,3,6)=Vg;      %(%H,4,6)=SDVg;
+    %(%H,3,7)=Vb;      %(%H,4,7)=SDVb;
+    %(%H,3,8)=Vu;      %(%H,4,8)=SDVu;
+    };
+  if(f==6 && skipfit==0){
+    %(%H,3,1)=logkr;   %(%H,4,1)=SDlogkr;
+    %(%H,3,2)=logkg;   %(%H,4,2)=SDlogkg;
+    %(%H,3,3)=logkb;   %(%H,4,3)=SDlogkb;
+    %(%H,3,4)=logku;   %(%H,4,4)=SDlogku;
+    %(%H,3,5)=Vr;      %(%H,4,5)=SDVr;
+    %(%H,3,6)=Vg;      %(%H,4,6)=SDVg;
+    %(%H,3,7)=Vb;      %(%H,4,7)=SDVb;
+    %(%H,3,8)=Vu;      %(%H,4,8)=SDVu;
+    };
+  if(f==7 && skipfit==0){
+    %(%H,3,1)=logk;    %(%H,4,1)=SDlogk;
+    %(%H,3,2)=logk;    %(%H,4,2)=SDlogk;
+    %(%H,3,3)=logk;    %(%H,4,3)=SDlogk;
+    %(%H,3,4)=logk;    %(%H,4,4)=SDlogk;
+    %(%H,3,5)=Vr;      %(%H,4,5)=SDVr;
+    %(%H,3,6)=Vg;      %(%H,4,6)=SDVg;
+    %(%H,3,7)=Vb;      %(%H,4,7)=SDVb;
+    %(%H,3,8)=Vu;      %(%H,4,8)=SDVu;
+    };
+  if(f==8 && skipfit==0){
+    %(%H,3,1)=logkr;   %(%H,4,1)=SDlogkr;
+    %(%H,3,2)=logkg;   %(%H,4,2)=SDlogkg;
+    %(%H,3,3)=logkb;   %(%H,4,3)=SDlogkb;
+    %(%H,3,4)=logku;   %(%H,4,4)=SDlogku;
+    %(%H,3,5)=Vr;      %(%H,4,5)=SDVr;
+    %(%H,3,6)=Vg;      %(%H,4,6)=SDVg;
+    %(%H,3,7)=Vb;      %(%H,4,7)=SDVb;
+    %(%H,3,8)=Vu;      %(%H,4,8)=SDVu; 
+    }; 
+  if(f==9 && skipfit==0){
+    %(%H,3,1)=logk;    %(%H,4,1)=SDlogk;
+    %(%H,3,2)=logk;    %(%H,4,2)=SDlogk;
+    %(%H,3,3)=logk;    %(%H,4,3)=SDlogk;
+    %(%H,3,4)=Vr2;    %(%H,4,4)=SDVr2;
+    %(%H,3,5)=Vr1;      %(%H,4,5)=SDVr1;
+    %(%H,3,6)=Vg;      %(%H,4,6)=SDVg;
+    %(%H,3,7)=Vb;      %(%H,4,7)=SDVb;
+    %(%H,3,8)=Vu;      %(%H,4,8)=SDVu;
+    };
+
+//select 3 equal quanta irradiances for plotting
+//get backgrounds to suggest best quantal level
+//dark, rods; white, red cones; 428nm, red cones; 617, green cones; 617$418, green cones; 485nm, red cones
+  page.active$="Import";
+  del -ra x1;
+  range x1=[%(%H,1,1)]StimResp!col(B);
+  if(x1[12]$=="white"){IrRange=2};
+  if(x1[12]$=="red"){IrRange=4};
+  if(x1[12]$=="yellow"){IrRange=4};
+  if(x1[12]$=="blue"){IrRange=2};
+  if(x1[12]$=="dark"){IrRange=2};
+  if(x1[12]$=="dark" && f==5){IrRange=3};
+  if(x1[12]$=="627nm"){IrRange=4};
+  if(x1[12]$=="418nm"){IrRange=2};
+  if(x1[12]$=="627and418nm"){IrRange=4};
+  if(x1[12]$=="485nm"){IrRange=2};
+
+  page.active$="Spectrum";
+  %B="data redcone rod greencone 2.5 3.0 3.5 4.0* 4.5 5.0";
+
+//check for previous selection
+if(col(4)[17]>=1 && col(4)[17]<=10){IrRange=col(4)[17]};
+
+
+  getn (irradiance + and - 0.6 logs) IrRange:B (select irradiance values for plots);
+  col(4)[17]=IrRange;
+
+//decode IR range index 
+  if(IrRange==1){%(%H,4,16)="data"};
+  if(IrRange==2){%(%H,4,16)="redcone"};
+  if(IrRange==3){%(%H,4,16)="rod"};
+  if(IrRange==4){%(%H,4,16)="greencone"};
+  if(IrRange==5){%(%H,4,16)="logk=2.5"};
+  if(IrRange==6){%(%H,4,16)="logk=3.0"};
+  if(IrRange==7){%(%H,4,16)="logk=3.5"};
+  if(IrRange==8){%(%H,4,16)="logk=4.0"};
+  if(IrRange==9){%(%H,4,16)="logk=4.5"};
+  if(IrRange==10){%(%H,4,16)="logk=5.0"};
+
+  if(IrRange==2){
+//calculate k25, k50, k75 irradiances to plot based on modeled red cone sensitivity
+    k25=col(mean)[1]+log(.25);
+    k50=col(mean)[1];
+    k75=col(mean)[1]+log(4);
+    };
+  if(IrRange==3||IrRange==4){
+//calculate k25, k50, k75 irradiances to plot based on modeled rod or gc sensitivity
+    page.active$="Spectrum";
+    k25=col(mean)[2]+log(.25);
+    k50=col(mean)[2];
+    k75=col(mean)[2]+log(4);
+    };
+  if(IrRange>=5 && IrRange<=10){
+//calculate k25, k50, k75 irradiances to plot based on selected threshold sensitivity
+    page.active$="Spectrum";
+    k25= 2.0+0.5*(IrRange-4)+log(.25);
+    k50= 2.0+0.5*(IrRange-4);
+    k75= 2.0+0.5*(IrRange-4) +log(4);
+    };
+
+  
+//get k25, k50, k75 irradiances to plot based on stimuli for all wl
+  if(IrRange==1){
+    page.active$="Import";
+    IRmax=-10;
+    IRmin=10;
+    get col(Ir) -e last;
+    for(i=1;i<=last;i+=1){
+      if(col(wl)[i]!=650){
+        if(col(Ir)[i]>IRmax){
+          IRmax=col(Ir)[i];
+          };
+        if(col(Ir)[i]<IRmin){
+          IRmin=col(Ir)[i];
+          }}};       
+    K50=IRmin+(IRmax-IRmin)/2;
+    k25=K50+log(.25);
+    k75=k50+log(4);
+    if(k25<IRmin){k25=IRmin};
+    if(k75>IRmax){k75=IRmax};
+    };
+
+  page.active$="Spectrum";
+  %(%H,3,16)=k25;  //%(%H,1,16)="%(hvRange$)";
+  %(%H,3,17)=k50;  //%(%H,1,17)=IrRange;
+  %(%H,3,18)=k75;
+
+
+//if(skipfit==0){
+  //RGBU scoring prior to 10/2014
+//  Vnet=Abs(Vr)+Abs(Vg)+Abs(Vb)+Abs(Vu);
+//  if (Abs(Vr)/Vnet<.05){R$=""};
+//  if (Vr/Vnet>=.05){R$="r+/"};
+//  if (Vr/Vnet>=.25){R$="R+/"};
+//  if (Vr/Vnet<=-.05){R$="r-/"};
+//  if (Vr/Vnet<=-.25){R$="R-/"};
+//  if (Abs(Vg)/Vnet<.05){G$=""};
+//  if (Vg/Vnet>=.05){G$="g+/"};
+//  if (Vg/Vnet>=.25){G$="G+/"};
+//  if (Vg/Vnet<=-.05){G$="g-/"};
+//  if (Vg/Vnet<=-.25){G$="G-/"};
+//  if (Abs(Vb)/Vnet<.05){B$=""};
+//  if (Vb/Vnet>=.05){B$="b+/"};
+//  if (Vb/Vnet>=.25){B$="B+/"};
+//  if (Vb/Vnet<=-.05){B$="b-/"};
+//  if (Vb/Vnet<=-.25){B$="B-/"};
+//  if (Abs(Vu)/Vnet<.05){U$=""};
+//  if (Vu/Vnet>=.05){U$="u+"};
+//  if (Vu/Vnet>=.25){U$="U+"};
+//  if (Vu/Vnet<=-.05){U$="u-"};
+//  if (Vu/Vnet<=-.25){U$="U-"};
+//  if(f==5){
+//    if (Abs(Vg)/Vnet<.05){G$=""};
+//    if (Vg/Vnet>=.05){G$="rod+/"};
+//    if (Vg/Vnet>=.25){G$="ROD+/"};
+//    if (Vg/Vnet<=-.05){G$="rod-/"};
+//    if (Vg/Vnet<=-.25){G$="ROD-/"};
+//    };
+//  %B=%(R$)%(G$)%(B$)%(U$);
+//  %(%N,3,13)="%B";
+//};
+
+//RGBU scoring based on Vmax's and SEM's
+//accept as r+ r- etc if Vr>VrSEM etc
+//accept as R+ R- etc if Vr>2VrSEM etc
+  if(f==9){
+    R2$="";
+    if(Vr2/SDVr2>1){R2$="r2+/"};if(Vr2/SDVr2<-1){R2$="r2-/"};
+    if(Vr2/SDVr2>2){R2$="R2+/"};if(Vr2/SDVr2<-2){R2$="R2-/"};
+    if(col(SD)[1]>0==0){R2$=""};
+    R1$="";
+    if(Vr1/SDVr1>1){R1$="r1+/"};if(Vr1/SDVr1<-1){R1$="r1-/"};
+    if(Vr1/SDVr1>2){R1$="R1+/"};if(Vr1/SDVr1<-2){R1$="R1-/"};
+    if(col(SD)[1]>0==0){R1$=""};
+    };
+  if(f!=9){
+  R$="";
+    if(Vr/SDVr>1){R$="r+/"};if(Vr/SDVr<-1){R$="r-/"};
+    if(Vr/SDVr>2){R$="R+/"};if(Vr/SDVr<-2){R$="R-/"};
+    if(col(SD)[1]>0==0){R$=""};
+    };
+  G$="";
+  if(Vg/SDVg>1){G$="g+/"};if(Vg/SDVg<-1){G$="g-/"};
+  if(Vg/SDVg>2){G$="G+/"};if(Vg/SDVg<-2){G$="G-/"};
+  if(col(SD)[2]>0==0){G$=""};
+  B$="";
+  if(Vb/SDVb>1){B$="b+/"};if(Vb/SDVb<-1){B$="b-/"};
+  if(Vb/SDVb>2){B$="B+/"};if(Vb/SDVb<-2){B$="B-/"}; 
+  if(col(SD)[3]>0==0){B$=""};
+  U$="";
+  if(Vu/SDVu>1){U$="u+"};if(Vu/SDVu<-1){U$="u-"}; 
+  if(Vu/SDVu>2){U$="U+"};if(Vu/SDVu<-2){U$="U-"};
+  if(f!=9){
+    if(col(SD)[4]>0==0){U$=""};
+    };
+  if(f==9){
+    if(col(SD)[1]>0==0){U$=""};
+    }; 
+  //for rods
+  if(f==5){
+    G$="";
+    if(Vg/SDVg>1){G$="rod+"};if(Vg/SDVg<-1){G$="rod-"};
+    if(Vg/SDVg>2){G$="Rod+"};if(Vg/SDVg<-2){G$="Rod-"};      
+    };
+  if(f!=9){
+    %B=%(R$)%(G$)%(B$)%(U$);
+    %(%N,3,13)="%B";
+    };
+  if(f==9){
+    %B=%(R2$)%(R1$)%(G$)%(B$)%(U$);
+    %(%N,3,13)="%B";
+    };
+
+//get treatments and classifications
+if !(exist(b)){b=0};
+if(%(%H,4,28)>0){b=%(%H,4,28)};
+%B="Cell ERG Spikes";
+
+getn (Type of recording) b:B (Treatments and Classifications);
+%(%H,3,28)="%[%B,#$(b)]";%(%H,4,28)=b;
+if(b==2||b==3){
+//get ERG classification
+  page.active$="Import";
+  Range x1=[%(%H,1,1)]StimResp!col(B);
+  Range x2=[%(%H,1,1)]Irrad-wl-Amp!col(C);
+  page.active$="Spectrum";
+//get background ND
+  %L=x1[5]$;
+  %(%H,3,19)="%L";
+//get eye#
+  %U=x1[6]$;
+  %(%H,3,20)="%U";
+//get response type
+  %V=x1[7]$;
+  %(%H,3,21)="%V";
+//get drugs
+  %T=x1[8]$;
+  %(%H,3,24)="%T";
+//get zebrafish strain and age
+  %A=x1[10]$;%J=x1[17]$;
+  %(%H,3,25)="%A";  %(%H,4,25)="%J";
+//get analysis type
+  %Z=x1[11]$;
+  %(%H,3,26)="%Z";
+//get background color
+  %M=x1[12]$;
+  %(%H,3,27)="%M";
+//transfer response measure and scale
+  %B=x2[17]$;
+  %(%H,3,29)="%B"; 
+  %(%H,4,29)=x2[16];
+  %B=x2[19]$;
+  %(%H,1,29)="%B"; 
+//transfer cell type
+if(b==3){
+  %B=x1[16]$;
+  %(%H,3,22)="%B";
+  };
+//get Extra ND
+  %O=x1[9]$;
+  %(%H,3,30)="%O";
+
+//create label for meanspectrum
+  col(1)[10]$=[Date]!col(1)[1]$ + col(3)[20]$ + col(1)[1]$;  //list mean spectrum header
+  col(1)[15]$=%[%(PktoPkSegment$), #(minmaxsegment)]; //record segment for peak/trough times
+
+  getn (Eye Number) %%U (Response Type) %%V (Drug Treatment) %%T (background ND) %%L (background color) %%M (Extra ND) %%O (zebrafish strain) %%A (zebrafish age) %%J (Analysis) %%Z (ERG Treatments and Classifications);
+  };
+if(b==1){
+//get Cell classification
+  page.active$="Import";
+  Range x1=[%(%H,1,1)]StimResp!col(B);
+  Range x2=[%(%H,1,1)]Irrad-wl-Amp!col(C);
+  page.active$="Spectrum";  
+//get cell#
+  %U=x1[6]$;
+  %(%H,3,20)="%U";
+//get response type
+  %V=x1[7]$;
+  %(%H,3,21)="%V";
+//get Cell type
+  %T=x1[8]$;
+  %(%H,3,22)="%T";
+//get zebrafish strain
+  %A=x1[5]$;
+  %(%H,3,25)="%A";
+//transfer response measure and scale
+  %B=x2[17]$;
+  %(%H,3,29)="%B"; 
+  %(%H,4,29)=x2[16];
+  getn (Cell Number) %%U (Resp Type) %%V  (Cell Type) %%T (zebrafish strain) %%A (Cell Information);
+  };
+
+
+
+getyesno "Compute the spectra?" yes;
+
+if(yes){
+    run.file(k47multiplot.txt)};
