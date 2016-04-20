@@ -1,0 +1,298 @@
+  get col(Amp) -e last;
+//nlsf.func$=K5HrgbPu;
+  nlsf.x1$ = [%H]Import!col(Ir); 
+  nlsf.x2$ = [%H]IMport!col(wl);
+  nlsf.y$ = [%H]Import!col(Amp);
+  nlsf.dataBegin= 1;
+  nlsf.dataEnd=last;
+
+if(skipfit==0){
+  nlsf.p1=3;
+  nlsf.p2=20;
+  nlsf.p3=20;
+  nlsf.p4=20;
+  nlsf.p5=10;
+  nlsf.p6=10;
+  nlsf.lb1=-1;
+  nlsf.lb2=-500;
+  nlsf.lb3=-500;
+  nlsf.lb4=-500;
+  nlsf.lb5=-500;
+  nlsf.lb6=-500;
+  };
+
+if(skipfit==0){
+  nlsf.iterate(99);
+  };
+
+if(skipfit==0){
+  SDlogk=nlsf.e1;
+  SDVr2=nlsf.e2;
+  SDVr1=nlsf.e3;
+  SDVg=nlsf.e4;
+  SDVb=nlsf.e5;
+  SDVu=nlsf.e6;
+  };
+
+if(skipfit==0){
+  if("%[%H,1:5]"=="Graph"){win -cd %H};
+  page.active$="Spectrum";
+  PktoPkSegment$="400to800ms";
+  minmaxsegment=PktoPkSegment.FindToken(col(1)[15]$); 
+minmaxsegment=1;
+//  getn (response segment) minmaxsegment:PktoPkSegment$ (select response segment for min/max & pk/pk);
+  col(1)[15]$=PktoPkSegment.gettoken(minmaxsegment)$;
+  win -a %N;
+  page.active$="Import";
+  range responsemean=[%(%H,1,1)]StimResp!col(mean);
+  range msec=[%(%H,1,1)]StimResp!col(Time);
+//decode minmaxsement
+    beginsegment=0.2*responsemean.nrows;
+    endsegment=0.4*responsemean.nrows;
+  limit responsemean -b beginsegment -e endsegment;
+  mintime=msec[limit.imin]-400;
+  maxtime=msec[limit.imax]-400;
+  limit col(Amp);
+  };
+
+if(skipfit==0){
+//clear parameter labels and values
+  page.active$="Spectrum";
+  for(i=1;i<=60;i+=1){
+    //%(%H,1,i)="";
+    %(%H,2,i)="";
+    %(%H,3,i)="";
+    %(%H,4,i)="";
+    };
+  };
+
+
+if(skipfit==0){
+    %(%H,2,1)="logk";
+    %(%H,2,2)="logk";
+    %(%H,2,3)="logk";
+    };
+
+  %(%H,2,5)="Vr";
+  %(%H,2,6)="Vg";
+  %(%H,2,7)="Vb";
+  %(%H,2,8)="Vu";
+  %(%H,2,9)="npoints";    %(%H,3,9)=nlsf.npoints;
+  %(%H,2,10)="fitfunc";   %(%H,3,10)=f;			col(SD)[10]$=nlsf.func$;
+  %(%H,2,11)="iter";      %(%H,3,11)=nlsf.niter;
+  %(%H,2,12)="r^2";       %(%H,3,12)=nlsf.cod;
+  %(%H,2,13)="RGBU type";
+  %(%H,2,14)="Vmin µV|ms";      %(%H,3,14)=limit.ymin;     %(%H,4,14)=mintime;
+  %(%H,2,15)="Vmax µV|ms";      %(%H,3,15)=limit.ymax;     %(%H,4,15)=maxtime;
+  %(%H,2,16)="hvmin";     //%(%H,3,16)=k25;
+  %(%H,2,17)="hvmean";     //%(%H,3,17)=k50;
+  %(%H,2,18)="hvmax";     //%(%H,3,18)=k75;
+
+//write experiment parameter labels
+%(%H,2,19)="Bkgd ND";
+%(%H,2,20)="Cell#";     //%(%H,3,20)=%K
+%(%H,2,21)="RespType";  //%(%H,3,21)=    %(%H,4,21)=
+%(%H,2,22)="CellType";  //%(%H,3,22)=    %(%H,4,22)=
+%(%H,2,23)="Graph#";
+%(%H,2,24)="Drugs";
+%(%H,2,25)="ZFstrain";
+%(%H,2,26)="Analysis";
+%(%H,2,27)="BkgdColr";
+%(%H,2,28)="PlotType";
+%(%H,2,29)="Measure/scale";
+%(%H,2,30)="Extra ND";
+
+
+//write curve parameter labels
+%(%H,2,31)="wl20min";
+%(%H,2,32)="wl20max";
+%(%H,2,33)="wl20nul1";
+%(%H,2,34)="wl20nul2";
+%(%H,2,35)="wl20nul3";
+
+%(%H,2,41)="wl50min";
+%(%H,2,42)="wl50max";
+%(%H,2,43)="wl50nul1";
+%(%H,2,44)="wl50nul2";
+%(%H,2,45)="wl50nul3";
+
+%(%H,2,51)="wl80min";
+%(%H,2,52)="wl80max";
+%(%H,2,53)="wl80nul1";
+%(%H,2,54)="wl80nul2";
+%(%H,2,55)="wl80nul3";
+
+
+  if(skipfit==0){
+    %(%H,3,1)=logk;    %(%H,4,1)=SDlogk;
+    %(%H,3,2)=logk;    %(%H,4,2)=SDlogk;
+    %(%H,3,3)=logk;    %(%H,4,3)=SDlogk;
+    %(%H,3,4)=Vr2;    %(%H,4,4)=SDVr2;
+    %(%H,3,5)=Vr1;      %(%H,4,5)=SDVr1;
+    %(%H,3,6)=Vg;      %(%H,4,6)=SDVg;
+    %(%H,3,7)=Vb;      %(%H,4,7)=SDVb;
+    %(%H,3,8)=Vu;      %(%H,4,8)=SDVu;
+    };
+
+
+//select 3 equal quanta irradiances for plotting
+//get backgrounds to suggest best quantal level
+//dark, rods; white, red cones; 428nm, red cones; 617, green cones; 617$418, green cones; 485nm, red cones
+  page.active$="Import";
+  del -ra x1;
+  range x1=[%(%H,1,1)]StimResp!col(B);
+  if(x1[12]$=="white"){IrRange=2};
+  if(x1[12]$=="red"){IrRange=4};
+  if(x1[12]$=="yellow"){IrRange=4};
+  if(x1[12]$=="blue"){IrRange=2};
+  if(x1[12]$=="dark"){IrRange=2};
+  if(x1[12]$=="dark" && f==5){IrRange=3};
+  if(x1[12]$=="627nm"){IrRange=4};
+  if(x1[12]$=="418nm"){IrRange=2};
+  if(x1[12]$=="627and418nm"){IrRange=4};
+  if(x1[12]$=="485nm"){IrRange=2};
+
+  page.active$="Spectrum";
+  %B="data redcone rod greencone 2.5 3.0 3.5 4.0* 4.5 5.0";
+
+//check for previous selection
+if(col(4)[17]>=1 && col(4)[17]<=10){IrRange=col(4)[17]};
+
+
+//  getn (irradiance + and - 0.6 logs) IrRange:B (select irradiance values for plots);
+   IrRange=8;
+   col(4)[17]=IrRange;
+
+
+//decode IR range index 
+  if(IrRange==1){%(%H,4,16)="data"};
+  if(IrRange==2){%(%H,4,16)="redcone"};
+  if(IrRange==3){%(%H,4,16)="rod"};
+  if(IrRange==4){%(%H,4,16)="greencone"};
+  if(IrRange==5){%(%H,4,16)="logk=2.5"};
+  if(IrRange==6){%(%H,4,16)="logk=3.0"};
+  if(IrRange==7){%(%H,4,16)="logk=3.5"};
+  if(IrRange==8){%(%H,4,16)="logk=4.0"};
+  if(IrRange==9){%(%H,4,16)="logk=4.5"};
+  if(IrRange==10){%(%H,4,16)="logk=5.0"};
+
+//calculate k25, k50, k75 irradiances to plot based on selected threshold sensitivity
+    page.active$="Spectrum";
+    k25= 2.0+0.5*(IrRange-4)+log(.25);
+    k50= 2.0+0.5*(IrRange-4);
+    k75= 2.0+0.5*(IrRange-4) +log(4);
+
+  page.active$="Spectrum";
+  %(%H,3,16)=k25;  //%(%H,1,16)="%(hvRange$)";
+  %(%H,3,17)=k50;  //%(%H,1,17)=IrRange;
+  %(%H,3,18)=k75;
+
+    R2$="";
+    if(Vr2/SDVr2>1){R2$="r2+/"};if(Vr2/SDVr2<-1){R2$="r2-/"};
+    if(Vr2/SDVr2>2){R2$="R2+/"};if(Vr2/SDVr2<-2){R2$="R2-/"};
+    if(col(SD)[1]>0==0){R2$=""};
+    R1$="";
+    if(Vr1/SDVr1>1){R1$="r1+/"};if(Vr1/SDVr1<-1){R1$="r1-/"};
+    if(Vr1/SDVr1>2){R1$="R1+/"};if(Vr1/SDVr1<-2){R1$="R1-/"};
+    if(col(SD)[1]>0==0){R1$=""};
+  G$="";
+  if(Vg/SDVg>1){G$="g+/"};if(Vg/SDVg<-1){G$="g-/"};
+  if(Vg/SDVg>2){G$="G+/"};if(Vg/SDVg<-2){G$="G-/"};
+  if(col(SD)[2]>0==0){G$=""};
+  B$="";
+  if(Vb/SDVb>1){B$="b+/"};if(Vb/SDVb<-1){B$="b-/"};
+  if(Vb/SDVb>2){B$="B+/"};if(Vb/SDVb<-2){B$="B-/"}; 
+  if(col(SD)[3]>0==0){B$=""};
+  U$="";
+  if(Vu/SDVu>1){U$="u+"};if(Vu/SDVu<-1){U$="u-"}; 
+  if(Vu/SDVu>2){U$="U+"};if(Vu/SDVu<-2){U$="U-"};
+    if(col(SD)[1]>0==0){U$=""};
+    %B=%(R2$)%(R1$)%(G$)%(B$)%(U$);
+    %(%N,3,13)="%B";
+
+//copy to files page
+page.active$=Files;
+col(%(nlsf.func$))[3]$=%B;
+page.active$=Spectrum;
+
+
+
+//get treatments and classifications
+if !(exist(b)){b=0};
+if(%(%H,4,28)>0){b=%(%H,4,28)};
+%B="Cell ERG Spikes";
+b=2;
+//getn (Type of recording) b:B (Treatments and Classifications);
+%(%H,3,28)="ERG";
+%(%H,4,28)=b;
+if(b==2||b==3){
+//get ERG classification
+  page.active$="Import";
+  Range x1=[%(%H,1,1)]StimResp!col(B);
+  Range x2=[%(%H,1,1)]Irrad-wl-Amp!col(C);
+  page.active$="Spectrum";
+//get background ND
+  %L=x1[5]$;
+  %(%H,3,19)="%L";
+//get eye#
+  %U=x1[6]$;
+  %(%H,3,20)="%U";
+//get response type
+  %V=x1[7]$;
+  %(%H,3,21)="%V";
+//get drugs
+  %T=x1[8]$;
+  %(%H,3,24)="%T";
+//get zebrafish strain and age
+  %A=x1[10]$;%J=x1[17]$;
+  %(%H,3,25)="%A";  %(%H,4,25)="%J";
+//get analysis type
+  %Z=x1[11]$;
+  %(%H,3,26)="%Z";
+//get background color
+  %M=x1[12]$;
+  %(%H,3,27)="%M";
+//transfer response measure and scale
+  %B=x2[17]$;
+  %(%H,3,29)="%B"; 
+  %(%H,4,29)=x2[16];
+  %B=x2[19]$;
+  %(%H,1,29)="%B"; 
+//transfer cell type
+if(b==3){
+  %B=x1[16]$;
+  %(%H,3,22)="%B";
+  };
+//get Extra ND
+  %O=x1[9]$;
+  %(%H,3,30)="%O";
+
+//create label for meanspectrum
+  col(1)[10]$=[Date]!col(1)[1]$ + col(3)[20]$ + col(1)[1]$;  //list mean spectrum header
+  col(1)[15]$=%[%(PktoPkSegment$), #(minmaxsegment)]; //record segment for peak/trough times
+
+ 
+  };
+if(b==1){
+//get Cell classification
+  page.active$="Import";
+  Range x1=[%(%H,1,1)]StimResp!col(B);
+  Range x2=[%(%H,1,1)]Irrad-wl-Amp!col(C);
+  page.active$="Spectrum";  
+//get cell#
+  %U=x1[6]$;
+  %(%H,3,20)="%U";
+//get response type
+  %V=x1[7]$;
+  %(%H,3,21)="%V";
+//get Cell type
+  %T=x1[8]$;
+  %(%H,3,22)="%T";
+//get zebrafish strain
+  %A=x1[5]$;
+  %(%H,3,25)="%A";
+//transfer response measure and scale
+  %B=x2[17]$;
+  %(%H,3,29)="%B"; 
+  %(%H,4,29)=x2[16];
+  };

@@ -1,0 +1,20 @@
+
+NC=wks.ncols;
+for (i=2;i=<NC;i+=1){
+PkA=%(%H,$(i),2);
+TrA=%(%H,$(i),4);
+Pktr=PkA-TrA;
+%(%H,$(i),5) = Pktr;
+};
+
+col(A)[5]$="Amp Diff";
+
+//for (i=2;i=<NC;i+=1){
+//TAKb = $(i);
+//nomm$ = col($(i))[P1]$;
+//nim$ = col($(i))[P2]$;
+//win -a %(nomm$);
+//page.active$ = nim$;
+//worksheet -c;
+//NCC=wks.ncols;
+//wrcopy iw:=[%Q]"%R"! r1:=1 r2:=4005 c1:=$(i) c2:=
